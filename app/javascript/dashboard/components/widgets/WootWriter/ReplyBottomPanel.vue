@@ -38,16 +38,6 @@
         />
       </file-upload>
       <woot-button
-        v-if="showAudioRecorderButton"
-        v-tooltip.top-end="$t('CONVERSATION.REPLYBOX.TIP_AUDIORECORDER_ICON')"
-        :icon="!isRecordingAudio ? 'microphone' : 'microphone-off'"
-        emoji="🎤"
-        :color-scheme="!isRecordingAudio ? 'secondary' : 'alert'"
-        variant="smooth"
-        size="small"
-        @click="toggleAudioRecorder"
-      />
-      <woot-button
         v-if="showEditorToggle"
         v-tooltip.top-end="$t('CONVERSATION.REPLYBOX.TIP_FORMAT_ICON')"
         icon="quote"
@@ -279,9 +269,7 @@ export default {
       return this.showFileUpload || this.isNote;
     },
     showAudioRecorderButton() {
-      //if (this.isALineChannel) {
-        return false;
-      //}
+      return false;
       // Disable audio recorder for safari browser as recording is not supported
       const isSafari = /^((?!chrome|android|crios|fxios).)*safari/i.test(
         navigator.userAgent
