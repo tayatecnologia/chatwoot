@@ -48,17 +48,6 @@
         @click="$emit('toggle-editor')"
       />
       <woot-button
-        v-if="showAudioPlayStopButton"
-        :icon="audioRecorderPlayStopIcon"
-        emoji="🎤"
-        color-scheme="secondary"
-        variant="smooth"
-        size="small"
-        @click="toggleAudioRecorderPlayPause"
-      >
-        <span>{{ recordingAudioDurationText }}</span>
-      </woot-button>
-      <woot-button
         v-if="showMessageSignatureButton"
         v-tooltip.top-end="signatureToggleTooltip"
         icon="signature"
