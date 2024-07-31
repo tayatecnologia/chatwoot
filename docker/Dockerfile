@@ -1,5 +1,11 @@
 # pre-build stage
+# pre-build stage
 FROM ruby:3.3.3-alpine3.19 AS pre-builder
+
+# Instalar Node.js e outros pacotes
+RUN apk update && apk add --no-cache \
+  nodejs-current \
+  npm
 
 # ARG default to production settings
 # For development docker-compose file overrides ARGS
