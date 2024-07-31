@@ -1,11 +1,5 @@
 # pre-build stage
-# pre-build stage
 FROM ruby:3.3.3-alpine3.19 AS pre-builder
-
-# Instalar Node.js e outros pacotes
-RUN apk update && apk add --no-cache \
-  nodejs-current \
-  npm
 
 # ARG default to production settings
 # For development docker-compose file overrides ARGS
@@ -113,9 +107,8 @@ RUN if [ "$RAILS_ENV" != "production" ]; then \
   apk add --no-cache nodejs-current yarn; \
   fi
 
-COPY --from=frontend-builder /app/public /app/public
-COPY --from=frontend-builder /gems/ /gems/
-COPY --from=frontend-builder /app /app
+COPY --from=pre-builder /gems/ /gems/
+COPY --from=pre-builder /app /app
 
 # Copy .git_sha file from pre-builder stage
 COPY --from=pre-builder /app/.git_sha /app/.git_sha
@@ -123,5 +116,3 @@ COPY --from=pre-builder /app/.git_sha /app/.git_sha
 WORKDIR /app
 
 EXPOSE 3000
-
-CMD ["bundle", "exec", "rails", "s", "-p", "3000", "-b", "0.0.0.0"]
